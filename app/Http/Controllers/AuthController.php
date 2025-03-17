@@ -17,17 +17,26 @@ class AuthController extends Controller
 
         $credentials = $request->only('email', 'password');
 
-        if(Auth::attempt($credentials)) {
-            return response()->json(['message' => 'Login successful'], 200);
+        if ($token = Auth::guard('api')->attempt($credentials)) {
+            return response()->json([
+                'access_token' => $token,
+                'token_type' => 'bearer',
+                'expires_in' => auth('api')->factory()->getTTL() * 60
+            ]);
         }
-
+    
         return response()->json(['message' => 'Invalid credentials'], 401);
     }
 
     public function logout ()
     {
-        Auth::logout();
+        Auth::guard('api')->logout();
 
         return response()->json(['message' => 'Logout successful'], 200);
     }
+
+    // public function info ()
+    // {
+    //     return response()->json(Auth::guard('api')->user());
+    // }
 }

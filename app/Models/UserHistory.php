@@ -44,6 +44,8 @@ class UserHistory extends Model
 
     public function specialties()
     {
-        return $this->belongsToMany(Specealty::class, 'user_history_specialties', 'user_history_id', 'specialty_id');
+        return $this->belongsToMany(Specialty::class, 'user_history_specialties', 'user_history_id', 'specialty_id')
+        ->withPivot('uuid')
+        ->withTimestamps();
     }
 }
