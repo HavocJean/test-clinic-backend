@@ -7,8 +7,10 @@ use App\Models\UserHistory;
 use App\Models\Regional;
 use App\Models\Specialty;
 use App\Models\UserHistorySpecialty;
+use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class UserHistoryController extends Controller
 {
@@ -28,8 +30,9 @@ class UserHistoryController extends Controller
 
     public function store(Request $request)
     {
+        $user = Auth::user();
+
         $validator = Validator::make($request->all(), [
-            'user_id' => 'required|exists:users,id',
             'regional_id' => 'required|exists:regionals,id',
             'corporate_name' => 'required|string|max:255',
             'trade_name' => 'required|string|max:255',
@@ -43,6 +46,10 @@ class UserHistoryController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
+
+        $request->merge([
+            'user_id' => $user->id
+        ]);
 
         $userHistory = UserHistory::create($request->except('specialties'));
 
@@ -70,7 +77,6 @@ class UserHistoryController extends Controller
         $userHistory = UserHistory::findOrFail($id);
 
         $validator = Validator::make($request->all(), [
-            'user_id' => 'required|exists:users,id',
             'regional_id' => 'required|exists:regionals,id',
             'corporate_name' => 'required|string|max:255',
             'trade_name' => 'required|string|max:255',
