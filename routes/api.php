@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserHistoryController;
+use App\Http\Controllers\RegionalController;
+use App\Http\Controllers\SpecialtyController;
 
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -16,4 +18,7 @@ Route::middleware('jwt.auth')->group(function () {
         Route::put('/history/{id}', [UserHistoryController::class, 'update']);
         Route::delete('/history/{id}', [UserHistoryController::class, 'destroy']);
     });
+
+    Route::get('/specialties', [SpecialtyController::class, 'index']);
+    Route::get('/regionals', [RegionalController::class, 'index']);
 });
