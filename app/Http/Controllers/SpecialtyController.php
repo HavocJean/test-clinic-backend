@@ -10,7 +10,7 @@ class SpecialtyController extends Controller
 {
     public function index(Request $request): JsonResponse
     {
-        $specialties = Specialty::all();
+        $specialties = Specialty::select('uuid', 'name')->get();
         return response()->json($specialties);
     }
 }

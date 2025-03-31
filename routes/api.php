@@ -12,6 +12,8 @@ Route::middleware('jwt.auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
     Route::prefix('user')->group(function () {
+        Route::get('/info', [AuthController::class, 'info']);
+
         Route::get('/history', [UserHistoryController::class, 'index']);
         Route::post('/history', [UserHistoryController::class, 'store']);
         Route::get('/history/{id}', [UserHistoryController::class, 'show']);
