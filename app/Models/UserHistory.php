@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Str;
 
 class UserHistory extends Model
 {
@@ -33,7 +33,7 @@ class UserHistory extends Model
         parent::boot();
 
         static::creating(function ($userHistory) {
-            $userHistory->uuid = Uuid::uuid4()->toString();
+            $userHistory->uuid = (string) Str::uuid();
         });
     }
 

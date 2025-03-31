@@ -4,8 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Ramsey\Uuid\Uuid;
-
+use Illuminate\Support\Str;
 
 class Specialty extends Model
 {
@@ -24,7 +23,7 @@ class Specialty extends Model
         parent::boot();
 
         static::creating(function ($specialty) {
-            $specialty->uuid = Uuid::uuid4()->toString();
+            $specialty->uuid = (string) Str::uuid();
         });
     }
 

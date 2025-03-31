@@ -16,7 +16,7 @@ class CreateUserHistoryTable extends Migration
         Schema::create('user_history', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->uuid('uuid')->unique();
-            $table->unsignedInteger('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('regional_id');
             $table->string('corporate_name');
             $table->string('trade_name');

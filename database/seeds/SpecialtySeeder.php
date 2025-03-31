@@ -1,12 +1,16 @@
 <?php
-namespace Database\Seeds;
 
 use Illuminate\Database\Seeder;
-use Ramsey\Uuid\Uuid;
 use App\Models\Specialty;
+use Illuminate\Support\Str;
 
 class SpecialtySeeder extends Seeder
 {
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
     public function run()
     {
         $specialties = [
@@ -15,7 +19,7 @@ class SpecialtySeeder extends Seeder
 
         foreach ($specialties as $specialty) {
             Specialty::create([
-                'uuid' => Uuid::uuid4()->toString(),
+                'uuid' => Str::uuid(),
                 'name' => $specialty
             ]);
         }

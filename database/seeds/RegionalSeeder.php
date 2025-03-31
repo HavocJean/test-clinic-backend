@@ -1,12 +1,16 @@
 <?php
-namespace Database\Seeds;
 
 use Illuminate\Database\Seeder;
-use Ramsey\Uuid\Uuid;
 use App\Models\Regional;
+use Illuminate\Support\Str;
 
 class RegionalSeeder extends Seeder
 {
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
     public function run()
     {
         $regionals = [
@@ -15,10 +19,8 @@ class RegionalSeeder extends Seeder
         ];
 
         foreach ($regionals as $regional) {
-            $uuid = Uuid::uuid4()->toString();
-
             Regional::create([
-                'uuid' => $uuid,
+                'uuid' => (string) Str::uuid(),
                 'name' => $regional
             ]);
         }

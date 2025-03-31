@@ -13,6 +13,7 @@ class CreateSpecialtiesTable extends Migration
             $table->uuid('uuid')->unique();
             $table->string('name')->unique();
             $table->string('description')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
         });

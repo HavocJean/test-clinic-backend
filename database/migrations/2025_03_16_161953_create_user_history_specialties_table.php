@@ -16,7 +16,7 @@ class CreateUserHistorySpecialtiesTable extends Migration
         Schema::create('user_history_specialties', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('uuid')->unique();
-            $table->unsignedInteger('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('user_history_id');
             $table->unsignedBigInteger('specialty_id');
 

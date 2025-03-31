@@ -4,8 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Ramsey\Uuid\Uuid;
-
+use Illuminate\Support\Str;
 
 class Regional extends Model
 {
@@ -23,7 +22,12 @@ class Regional extends Model
         parent::boot();
 
         static::creating(function ($regional) {
-            $regional->uuid = Uuid::uuid4()->toString();
+            $regional->uuid = (string) Str::uuid();
         });
     }
+
+    // public function user_histories()
+    // {
+    //     return $this->hasMany(UserHistory::class);
+    // }
 }
