@@ -28,6 +28,25 @@ class AuthController extends Controller
         return response()->json(['message' => 'Invalid credentials'], 401);
     }
 
+    public function register (Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required'
+        ]);
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password)
+        ]);
+
+        return response()->json([
+            'message' => 'User created successfully'
+        ], 201);
+    }
+
     public function logout ()
     {
         Auth::guard('api')->logout();
