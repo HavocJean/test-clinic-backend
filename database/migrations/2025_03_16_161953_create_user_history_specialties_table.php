@@ -13,15 +13,15 @@ class CreateUserHistorySpecialtiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_history_specialties', function (Blueprint $table) {
+        Schema::create('patient_history_specialties', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('uuid')->unique();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('user_history_id');
+            $table->unsignedBigInteger('patient_id');
+            $table->unsignedBigInteger('patient_history_id');
             $table->unsignedBigInteger('specialty_id');
 
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('user_history_id')->references('id')->on('user_history')->onDelete('cascade');
+            $table->foreign('patient_id')->references('id')->on('patients');
+            $table->foreign('patient_history_id')->references('id')->on('patient_history')->onDelete('cascade');
             $table->foreign('specialty_id')->references('id')->on('specialties')->onDelete('cascade');
 
             $table->timestamps();
@@ -36,6 +36,6 @@ class CreateUserHistorySpecialtiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_history_specialties');
+        Schema::dropIfExists('patient_history_specialties');
     }
 }
