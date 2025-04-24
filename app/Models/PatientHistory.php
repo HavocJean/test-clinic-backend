@@ -6,15 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
-class UserHistory extends Model
+class PatientHistory extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'user_history';
+    protected $table = 'patient_history';
 
     protected $fillable = [
         'uuid',
-        'user_id',
+        'patient_id',
         'regional_id',
         'corporate_name',
         'trade_name',
@@ -32,8 +32,8 @@ class UserHistory extends Model
     {
         parent::boot();
 
-        static::creating(function ($userHistory) {
-            $userHistory->uuid = (string) Str::uuid();
+        static::creating(function ($patientHistory) {
+            $patientHistory->uuid = (string) Str::uuid();
         });
     }
 
@@ -44,7 +44,7 @@ class UserHistory extends Model
 
     public function specialties()
     {
-        return $this->belongsToMany(Specialty::class, 'user_history_specialties', 'user_history_id', 'specialty_id')
+        return $this->belongsToMany(Specialty::class, 'patient_history_specialties', 'patient_history_id', 'specialty_id')
         ->withPivot('uuid')
         ->withTimestamps();
     }

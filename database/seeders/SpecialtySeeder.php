@@ -1,17 +1,18 @@
 <?php
 
-use Illuminate\Database\Seeder;
+namespace Database\Seeders;
+
 use App\Models\Specialty;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
 class SpecialtySeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         $specialties = [
             'Cardiologia', 'Dermatologia', 'Neurologia', 'Ortopedia', 'Pediatria', 'Psiquiatria'
