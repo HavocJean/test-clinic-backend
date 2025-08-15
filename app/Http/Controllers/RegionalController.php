@@ -10,7 +10,7 @@ class RegionalController extends Controller
 {
     public function index(Request $request): JsonResponse
     {
-        $regionals = Regional::all();
+        $regionals = Regional::select('uuid', 'name')->get();
         return response()->json($regionals);
     }
 }

@@ -3,20 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\UserHistory;
-use App\Models\Regional;
-use App\Models\Specialty;
-use App\Models\UserHistorySpecialty;
-use App\Models\User;
+use App\Models\PatientHistory;
+use App\Models\PatientHistorySpecialty;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
-class UserHistoryController extends Controller
+class PatientHistoryController extends Controller
 {
     public function index(Request $request)
     {
-        $userHistory = UserHistory::query();
+        $userHistory = PatientHistory::query();
 
         if ($request->has('search')) {
             $userHistory->where('corporate_name', 'like', "%".$request->search."%")
@@ -51,11 +48,11 @@ class UserHistoryController extends Controller
             'user_id' => $user->id
         ]);
 
-        $userHistory = UserHistory::create($request->except('specialties'));
+        $userHistory = PatientHistory::create($request->except('specialties'));
 
         if (!empty($request->specialties)) {
             foreach ($request->specialties as $specialty) {
-                UserHistorySpecialty::create([
+                PatientHistorySpecialty::create([
                     'user_id' => $request->user_id,
                     'user_history_id' => $userHistory->id,
                     'specialty_id' => $specialty
@@ -68,13 +65,13 @@ class UserHistoryController extends Controller
 
     public function show(int $id)
     {
-        $userHistory = UserHistory::with('regional')->with('specialties')->findOrFail(request()->id);
+        $userHistory = PatientHistory::with('regional')->with('specialties')->findOrFail(request()->id);
         return response()->json($userHistory);
     }
 
     public function update(int $id, Request $request )
     {
-        $userHistory = UserHistory::findOrFail($id);
+        $userHistory = PatientHistory::findOrFail($id);
 
         $validator = Validator::make($request->all(), [
             'regional_id' => 'required|exists:regionals,id',
@@ -113,7 +110,7 @@ class UserHistoryController extends Controller
 
     public function destroy(int $id)
     {
-        $userHistory = UserHistory::findOrFail($id);
+        $userHistory = PatientHistory::findOrFail($id);
         $userHistory->delete();
 
         return response()->json(null, 204);

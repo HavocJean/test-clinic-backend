@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserHistoryTable extends Migration
+class CreatePatientHistoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateUserHistoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_history', function (Blueprint $table) {
+        Schema::create('patient_history', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->uuid('uuid')->unique();
-            $table->unsignedInteger('user_id');
+            $table->unsignedBigInteger('patient_id');
             $table->unsignedBigInteger('regional_id');
             $table->string('corporate_name');
             $table->string('trade_name');
@@ -27,7 +27,7 @@ class CreateUserHistoryTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('patient_id')->references('id')->on('patients');
             $table->foreign('regional_id')->references('id')->on('regionals')->onDelete('cascade');
         });
     }
@@ -39,6 +39,6 @@ class CreateUserHistoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_history');
+        Schema::dropIfExists('patient_history');
     }
 }
